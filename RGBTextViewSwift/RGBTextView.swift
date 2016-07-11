@@ -11,7 +11,7 @@ import UIKit
 class RGBTextView: UITextView {
     
     // MARK: - RGBTextView Property
-    // TODO: Add PlaceHolder
+    // TODO: Set Property in inspector also update the storyboard
     
     @IBInspectable var maxHeight: CGFloat = 0
     @IBInspectable var minHeight: CGFloat = 0

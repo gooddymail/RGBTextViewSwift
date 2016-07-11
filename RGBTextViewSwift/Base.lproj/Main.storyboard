@@ -33,9 +33,7 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="minHeight">
                                                 <real key="value" value="30"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderTextColor">
-                                                <color key="value" red="0.81176470590000005" green="0.74117647060000003" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Message"/>
                                         </userDefinedRuntimeAttributes>
                                     </textView>
                                 </subviews>
