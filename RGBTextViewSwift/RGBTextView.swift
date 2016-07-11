@@ -15,6 +15,8 @@ class RGBTextView: UITextView {
     
     @IBInspectable var maxHeight: CGFloat = 0
     @IBInspectable var minHeight: CGFloat = 0
+    @IBInspectable var placeholder: NSString?
+    @IBInspectable var placeholderTextColor: UIColor = UIColor.lightGrayColor()
     private var heightConstraint: NSLayoutConstraint?
     private var maxHeightConstraint: NSLayoutConstraint?
     
@@ -51,7 +53,15 @@ class RGBTextView: UITextView {
         removeTextViewNotificationObservers()
     }
     
-    
+    override func drawRect(rect: CGRect) {
+        super.drawRect(rect)
+        
+        if text.characters.count == 0 && placeholder != nil {
+            placeholderTextColor.set()
+            
+            placeholder?.drawInRect(CGRectInset(rect, 5.0, 8.0), withAttributes: placeholderTextAttributes())
+        }
+    }
     
     
     override func layoutSubviews() {
@@ -107,6 +117,17 @@ class RGBTextView: UITextView {
         for constraint in constraints {
             removeConstraint(constraint)
         }
+    }
+    
+    private func placeholderTextAttributes() -> [String: AnyObject] {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .ByTruncatingTail
+        paragraphStyle.alignment = textAlignment
+        
+        return [NSFontAttributeName: self.font!,
+                NSForegroundColorAttributeName: self.placeholderTextColor,
+                NSParagraphStyleAttributeName: paragraphStyle
+        ]
     }
     
     private func addTextViewNotificationObservers() {
