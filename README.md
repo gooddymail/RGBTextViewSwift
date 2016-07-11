@@ -1,6 +1,6 @@
 # RGBTextView
 
-**RGBTextView** will help you update height of your UITextView base on max and min height you set.
+**RGBTextView** is custom uitextview that will help you update height of your textview base on max and min height you set.
 
 ## Usage
 
