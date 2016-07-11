@@ -10,6 +10,8 @@
 
 3. Don't forget to set top, bottom, Trailing and leading of your textview with the container view.
 
+4. Please remember all Height constraint that you set to textview in storyboard will be remove at run time.
+
 
 ## Installation
 
