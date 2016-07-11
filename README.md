@@ -4,7 +4,7 @@
 
 ## Usage
 
-1. Set class of your textview in indentity inspector to RGBTextView.
+1. Set class of your textview in identity inspector to RGBTextView.
 
 2. In attributes inspector set min, max height or placeholder of your textview to what ever you want.![Screenshot](http://i1081.photobucket.com/albums/j357/gooddymail/Screen%20Shot%202559-07-11%20at%205.49.48%20PM.png)
 
