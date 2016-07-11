@@ -76,6 +76,8 @@ class RGBTextView: UITextView {
     // MARK: - RGBTextView Method
     
     private func configureTextView() {
+        removeAssociateConstraints()
+        
         if minHeight != 0 {
             
             heightConstraint =  NSLayoutConstraint(item: self,
@@ -99,6 +101,12 @@ class RGBTextView: UITextView {
         }
         
         addTextViewNotificationObservers()
+    }
+    
+    private func removeAssociateConstraints() {
+        for constraint in constraints {
+            removeConstraint(constraint)
+        }
     }
     
     private func addTextViewNotificationObservers() {
