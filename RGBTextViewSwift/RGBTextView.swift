@@ -13,8 +13,16 @@ class RGBTextView: UITextView {
     // MARK: - RGBTextView Property
     // TODO: Set Property in inspector also update the storyboard
     
-    @IBInspectable var maxHeight: CGFloat = 0
-    @IBInspectable var minHeight: CGFloat = 0
+    @IBInspectable var maxHeight: CGFloat = 0{
+        didSet {
+            configureTextView()
+        }
+    }
+    @IBInspectable var minHeight: CGFloat = 0 {
+        didSet {
+            configureTextView()
+        }
+    }
     @IBInspectable var maximumCharacter: Int = 0
     @IBInspectable var placeholder: NSString?
     @IBInspectable var placeholderTextColor: UIColor = UIColor.lightGrayColor()
@@ -36,7 +44,12 @@ class RGBTextView: UITextView {
     
     override var text: String! {
         didSet {
-            super.text = text
+            if maximumCharacter != 0 {
+                let index: String.Index = (text.startIndex.advancedBy(maximumCharacter))
+                super.text = text.substringToIndex(index)
+            } else {
+                super.text = text
+            }
             setNeedsDisplay()
         }
     }
@@ -46,6 +59,7 @@ class RGBTextView: UITextView {
         
         configureTextView()
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

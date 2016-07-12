@@ -11,9 +11,15 @@ import XCTest
 
 class RGBTextViewSwiftTests: XCTestCase {
     
+    let textView: RGBTextView = RGBTextView()
+    let maximumCharacter = 150
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        textView.minHeight = 30.0
+        textView.maxHeight = 150.0
+        textView.maximumCharacter = maximumCharacter
+        textView.text = "http://stackoverflow.com/questions/24074955/designated-initializer-of-uitextviewhttp://stackoverflow.com/questions/24074955/designated-initializer-of-uitextviewhttp://stackoverflow.com/questions/24074955/designated-initializer-of-uitextviewhttp://stackoverflow.com/questions/24074955/designated-initializer-of-uitextviewhttp://stackoverflow.com/questions/24074955/designated-initializer-of-uitextviewhttp://stackoverflow.com/questions/24074955/designated-initializer-of-uitextviewhttp://stackoverflow.com/questions/24074955/designated-initializer-of-uitextviewhttp://stackoverflow.com/questions/24074955/designated-initializer-of-uitextviewhttp://stackoverflow.com/questions/24074955/designated-initializer-of-uitextviewhttp://stackoverflow.com/questions/24074955/designated-initializer-of-uitextview"
     }
     
     override func tearDown() {
@@ -21,16 +27,50 @@ class RGBTextViewSwiftTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testHasHeightConstraint() {
+        var heightConstraint: NSLayoutConstraint?
+        
+        for constraint in textView.constraints {
+            
+            if constraint.relation == .Equal {
+                heightConstraint = constraint
+            }
+            
+        }
+        
+        if heightConstraint != nil {
+            XCTAssertTrue(true)
+        } else {
+            XCTAssertTrue(false, "Text view must have height constraint")
+        }
+        
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
+    func testHeightConstraintNotOverMaxHeight() {
+        
+        var heightConstraint: NSLayoutConstraint?
+        
+        for constraint in textView.constraints {
+            
+            if constraint.relation == .Equal {
+                heightConstraint = constraint
+            }
+            
         }
+        
+        XCTAssertTrue(heightConstraint!.constant <= 150, "Height Constraint should not over \(textView.maxHeight) but it \(heightConstraint?.constant)")
+        
     }
+    
+    func testIsTextInTextViewOverMaximumCharacter() {
+        XCTAssertTrue(textView.text.characters.count == maximumCharacter, "Text should not over \(maximumCharacter) but it \(textView.text.characters.count)")
+    }
+    
+//    func testPerformanceExample() {
+//        // This is an example of a performance test case.
+//        self.measureBlock {
+//            // Put the code you want to measure the time of here.
+//        }
+//    }
     
 }
