@@ -15,6 +15,7 @@ class RGBTextView: UITextView {
     
     @IBInspectable var maxHeight: CGFloat = 0
     @IBInspectable var minHeight: CGFloat = 0
+    @IBInspectable var maximumCharacter: Int = 0
     @IBInspectable var placeholder: NSString?
     @IBInspectable var placeholderTextColor: UIColor = UIColor.lightGrayColor()
     private var heightConstraint: NSLayoutConstraint?
@@ -30,6 +31,13 @@ class RGBTextView: UITextView {
             if self.contentSize.height <= (self.bounds.size.height + 1) {
                 self.contentOffset = CGPointZero
             }
+        }
+    }
+    
+    override var text: String! {
+        didSet {
+            super.text = text
+            setNeedsDisplay()
         }
     }
     
@@ -154,7 +162,15 @@ class RGBTextView: UITextView {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidEndEditingNotification, object: self)
     }
     
-    @objc private func didReciveTextViewNotification() {
+    @objc private func didReciveTextViewNotification(notification: NSNotification) {
+        if notification.name == UITextViewTextDidChangeNotification && maximumCharacter != 0 {
+            let textView = notification.object as? RGBTextView
+            if textView?.text.characters.count >= maximumCharacter {
+                let index: String.Index = (textView?.text.startIndex.advancedBy(maximumCharacter))!
+                text = textView?.text.substringToIndex(index)
+            }
+//            print("object \(notification.object)")
+        }
         self.setNeedsDisplay()
     }
     
